@@ -1,83 +1,57 @@
-var begDay = 8;
-var endDay = 18;
+$(document).ready(function () {
 
-// update current day at the top of the page
-$("#currentDay").text(moment().format("dddd, MMMM Do"));
+    //display current day
+    $("#currentDay").text(moment().format("MMMM Do YYYY"));
 
-// for loop to dynamically add timeblocks
-for (var i = begDay; i < endDay; i++) {
-    
-    var rowDiv = $("<div class='row'>");
+    //Assign saveBtn click listener for user input and time stamp
+    $(".saveBtn").on("click", function () {
 
-    var hourDiv= $("<div class='hour col-md-1'>").text((moment().hour(i).format("hA")));
-    
-    var timeBlock = $("<div class='time-block col-md-9'><textarea></textarea></div>").attr("id", i);
+        //get nearby values
+        console.log(this);
+        var text = $(this).siblings(".description").val();
+        var time = $(this).parent().attr("id");
 
-    var saveBtn = $("<div class='saveBtn col-md-1'>");
-    var saveIcon = $("<i class='fas fa-save'>");
-    
-    $(".container").append(rowDiv.append(hourDiv, timeBlock, saveBtn.append(saveIcon)));
-};
+        //set items in local storage
+        localStorage.setItem(time, text);
+    })
+    //load any saved data from LocalStorage - do this for each hour created.
+    $("#hour9 .description").val(localStorage.getItem("hour9"));
+    $("#hour10 .description").val(localStorage.getItem("hour10"));
+    $("#hour11 .description").val(localStorage.getItem("hour11"));
+    $("#hour12 .description").val(localStorage.getItem("hour12"));
+    $("#hour13 .description").val(localStorage.getItem("hour13"));
+    $("#hour14 .description").val(localStorage.getItem("hour14"));
+    $("#hour15 .description").val(localStorage.getItem("hour15"));
+    $("#hour16 .description").val(localStorage.getItem("hour16"));
+    $("#hour17 .description").val(localStorage.getItem("hour17"));
 
-// variable to get current time
-var currentTime = moment().hour();
 
-// for loop to set properties of time blocks
-for (var i = begDay; i < endDay; i++) {
-    var id;
-    if (currentTime < i) {
-        $(".time-block").removeAttr("past present future");
-        id = "future";
-    } else if (currentTime > i) {
-        $(".time-block").removeAttr("past present future");
-        id = "past";
-    } else if (currentTime = i) {
-        $(".time-block").removeAttr("past present future");
-        id = "present";
-    }
-    $("#" + i).attr("id", id);
-    }
+    function hourTracker() {
+        //get current number of hours.
+        var currentHour = moment().hour();
 
-var storageEl = [];
-var timeEl;
-var textEl;
-var content;
-// event listener to get text from text areas
-$(".saveBtn").on("click", function(event) {
-    event.preventDefault();
-    timeEl = parseInt($(this).parent().children(0).text());
-    textEl = $(this).parent().find("textarea").val();
-    content = {
-        time: timeEl,
-        text: textEl
-    }
-    storageEl = JSON.parse(localStorage.getItem("contents"));
-    if (storageEl !== true) {
-        localStorage.setItem("contents", JSON.stringify([{time: timeEl, text: textEl}]));
-    } else {
-        storageEl.push(content);
-        localStorage.setItem("contents", JSON.stringify(storageEl));
-    }
-    });
+        // loop over time blocks
+        $(".time-block").each(function () {
+            var blockHour = parseInt($(this).attr("id").split("hour")[1]);
+            console.log( blockHour, currentHour)
 
-// function to load saved information
-var showItems;
-function loadInfo() {
-    var savedInfo = JSON.parse(localStorage.getItem("contents"));
-    console.log(savedInfo);
-    if (savedInfo !== null) {
-        for (var i=0; i < savedInfo.length; i++) {
-            showItems=savedInfo[i];
-            text=showItems.text;
-            time=showItems.time;
-            if (text !== null) {
-                $(".hour").parent().children(0).find("textarea").val(text);
+            //check if we've moved past this time
+            if (blockHour < currentHour) {
+                $(this).addClass("past");
+                $(this).removeClass("future");
+                $(this).removeClass("present");
             }
-        }
-
+            else if (blockHour === currentHour) {
+                $(this).removeClass("past");
+                $(this).addClass("present");
+                $(this).removeClass("future");
+            }
+            else {
+                $(this).removeClass("present");
+                $(this).removeClass("past");
+                $(this).addClass("future");
+            }
+        })
     }
-
-}
-
-// function call 
-loadInfo();
+    hourTracker();
+})
