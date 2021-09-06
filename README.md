@@ -1,24 +1,19 @@
-# Jordan DuBose's JavaScript Quiz
+# Jordan's Work Day Scheduler
 
-This quiz was created to test my peers on their JavaScript knowledge! The quiz covers the basic fundamentals of JavaScript and saves high scores to local storage for comparison.
+This application was created to track (and save locally) work day events from 9:00am to 5:00pm in hourly timeblocks. The scheduler also tracks the time during the day for the user to easily see what events have passed, are happening currently, or take place in the future. 
 
 ## Motivation
 
-* This quiz is a great way to test the knowledge of myself and my peers on the basics of JavaScript, in an enjoyable and unique manner. 
+* I created this scheduler to easily track my day-to-day agenda including meetings, appointments, class times, and work due dates. As a full-time employee, student, and dog parent, it is difficult to keep track of all of my events across my work schedule, class schedule, and personal time. This application gives me the opportunity to track all of my different appointments without keeping them in separate apps. 
 
 ## Lessons Learned
 
-* How to manipulate divs to show and hide. 
-* How to code the option to save to local storage.
-* How to create a timer that has functionality.
-* How to use arrays and functions to create an interactive quiz.
+* How to display the current date/time using moment JS. 
+* How to tie the application with the current time to correctly display which events are in the past, present, and future. 
   
 ## Challenges
 
-* Manipulating the elements with show/hide functionality was very challenging.
-* Setting up the array of questions and answers proved to be more difficult than originally planned.
-
-Lastly, this project stands out due to the unique nature of the quiz flow and the linking to a highscores page that accesses local storage. 
+* The most challenging aspect of this application was using a conditional statement with the current time (moment JS) to correctly display for the end user which events are in the past, present, or future.
   
 Here is a link to the deployed webpage: https://jordandub1.github.io/work-day-scheduler/
 
