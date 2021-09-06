@@ -14,6 +14,7 @@ This application was created to track (and save locally) work day events from 9:
 ## Challenges
 
 * The most challenging aspect of this application was using a conditional statement with the current time (moment JS) to correctly display for the end user which events are in the past, present, or future.
+* I also ran into an issue with GitHub which forced me to use: git push -u origin main.
   
 Here is a link to the deployed webpage: https://jordandub1.github.io/work-day-scheduler/
 
