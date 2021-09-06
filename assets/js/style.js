@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
     //display current day
-    $("#currentDay").text(moment().format("MMMM Do YYYY"));
+    $("#currentDay").text(moment().format("dddd, " + "MMMM Do YYYY"));
 
-    //Assign saveBtn click listener for user input and time stamp
+    //assign saveBtn click listener for user input and time stamp
     $(".saveBtn").on("click", function () {
 
         //get nearby values
